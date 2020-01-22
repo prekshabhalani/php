@@ -48,7 +48,7 @@ echo "<strong>Example:</strong>". addcslashes($mainString , "a") ."<hr>";
 
 /************ addslashes() *************/
 echo "<strong> " . str_repeat("-",10)." Example of addslashes(string)</strong>" . str_repeat("-",10)." <br>";
-echo "  'it is use to return string with blckslashes before perticular character.'<br>";
+echo "  'it is use to return string with blckslashes before particular character.'<br>";
 echo "<strong>Example:</strong>". addslashes($mainString) ."<hr>";
 
 /************ bin2hex() *************/
@@ -69,7 +69,17 @@ echo " 'ord() is return ASCII value of the first character of the string. '<br>"
 echo " 'chr() is return string from the ASCII value. '<br>";
 $pChrASCII = ord($mainString);
 echo "<strong>Example(ord()):</strong>".ord($mainString) ."<br>";
-echo "<strong>Example(chr()):</strong>". chr($pChrASCII) ."<br>";
+echo "<strong>Example(chr()):</strong>". chr($pChrASCII) ."<hr>";
 
+
+/************ strpos() *************/
+echo "<strong> " . str_repeat("-",10)." Example of strpos(string , mixed[sub_string] ,offset)</strong>" . str_repeat("-",10)." <br>";
+echo "  'it is use to find a possition of substring into the string.'<br>";
+echo "<strong>Example:</strong> it find Preksha's possition in string ". strpos($mainString ,'Preksha',0) ."<hr>";
+
+/************ str_replace() *************/
+echo "<strong> " . str_repeat("-",10)." Example of str_replace(mix[sub_string] , mixed[replace_string] ,string)</strong>" . str_repeat("-",10)." <br>";
+echo "  'it is use to replace substring as a specific string.'<br>";
+echo "<strong>Example:</strong> it find replace Preksha with ' alex ' in to string :". str_replace('Preksha','alex' ,$mainString) ."<hr>";
 
 ?>
