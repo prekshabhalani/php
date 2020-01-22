@@ -3,7 +3,7 @@
 <?php
 /************ main string in which we perform some opration *************/
 
-$mainString = "Hey!! Preksha How are you? it's your code! .....  ";
+$mainString = "  @ Hey!! Preksha How are you? it's your code! .....@";
 echo "<h3>MAIN STRING:$mainString</h3> <br> ";
 
 /************ strtolower() *************/
@@ -81,5 +81,11 @@ echo "<strong>Example:</strong> it find Preksha's possition in string ". strpos(
 echo "<strong> " . str_repeat("-",10)." Example of str_replace(mix[sub_string] , mixed[replace_string] ,string)</strong>" . str_repeat("-",10)." <br>";
 echo "  'it is use to replace substring as a specific string.'<br>";
 echo "<strong>Example:</strong> it find replace Preksha with ' alex ' in to string :". str_replace('Preksha','alex' ,$mainString) ."<hr>";
+
+/************ trim() *************/
+echo "<strong> " . str_repeat("-",10)." Example of trim(string)</strong>" . str_repeat("-",10)." <br>";
+echo "  'it is use to remove whitespaces and specific character from start and end of the string.'<br>";
+echo "<strong>Example:</strong>". trim($mainString,'@') ."<hr>";
+
 
 ?>
