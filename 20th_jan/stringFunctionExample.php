@@ -67,7 +67,7 @@ echo "<strong>Note:</strong>it only remove space's from right side in string<hr>
 echo "<strong> " . str_repeat("-",10)." Example of chr(byte) and ord(string)</strong>" . str_repeat("-",10)." <br>";
 echo " 'ord() is return ASCII value of the first character of the string. '<br>";
 echo " 'chr() is return string from the ASCII value. '<br>";
-$pChrASCII=ord($mainString);
+$pChrASCII = ord($mainString);
 echo "<strong>Example(ord()):</strong>".ord($mainString) ."<br>";
 echo "<strong>Example(chr()):</strong>". chr($pChrASCII) ."<br>";
 
