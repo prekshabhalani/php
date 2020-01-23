@@ -1,6 +1,6 @@
 <!-- pattern  -->
 <center><h1><u>* ALL THE PATTERN *</u></h1></center>
-<hr>
+
 <?php
 //  PATTERN 1
     echo "<h3>PATTERN 1</h3>";
@@ -36,7 +36,7 @@
 echo "<h3>PATTERN 4</h3>";
 for ($i =1; $i < 10 ; $i++) { 
     for ($j =1; $j <= $i ; $j++) { 
-        echo "*";
+        echo "$j";
     }
     echo "<br>";
 }
