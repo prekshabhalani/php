@@ -9,7 +9,8 @@
     function display($fullyear)
     {   
         $max_day = date('t', strtotime($fullyear));
-        $offset = getdate(strtotime($fullyear))['wday'];
+        $offset = getdate(strtotime($fullyear))['wday'] -1; 
+        $offset < 0 ? $offset +=7 : $offset ;
         echo "<table border=1><tr>";
         echo "<caption>". date('M Y', strtotime($fullyear)) ."</caption></tr><tr>";
         for ($i=0; $i < 7 ; $i++)
