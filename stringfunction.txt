@@ -1,0 +1,8 @@
+explode();//it take two argument
+it is use to split string by string into array. it saprate the string by the specifid first argument.
+$string = "js,html,java,python"; 
+$a = explode(",",$string);
+//a[0] = js
+a[1] = html
+a[2] = java
+a[3] = python
