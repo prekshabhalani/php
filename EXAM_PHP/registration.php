@@ -65,7 +65,7 @@
                 <td>
                     <input type="text" name="email" id="email" placeholder="Email" value="<?php echo getValue("email"); ?>">
                     <span style="color:red">
-                    <?php echo (validate("email")) ? "Enter valide Email" : "";?>
+                    <?php  echo (validate("email") != 'true') ? (validate("email") == "Email Exist") ? "already have account" : "" :"enter valide Email";?>
                     </span>
                 </td>
             </tr>
