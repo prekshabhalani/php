@@ -73,7 +73,41 @@
                         return true;
                     }      
             break;
-                default:
+            
+            default:
+            break;
+            }
+        }
+        if (isset($_POST["addCategory"])){
+            switch ($fieldName) {
+                case 'title':
+                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
+                        return true;
+                    }
+            break;
+                case 'content':
+                    if (!preg_match("/^([A-Za-z]+)$/",$_POST[$fieldName])) {
+                        return true;
+                    }
+            break;
+                case 'url':
+                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
+                        return true;
+                    }
+            break;
+                case 'metaTitle':
+                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
+                        return true;
+                    }
+            break;
+                case 'parents_category':
+            break;
+                case 'confirmPassword':
+                    if (!($_POST["password"] == $_POST["confirmPassword"])) {
+                        return true;
+                    }
+            break;
+            default:
             break;
             }
         }
@@ -87,7 +121,7 @@
             && !validate('confirmPassword') && (isset($_POST['terms'])))
             {
                 store_usertable();
-                header( "Location: blogspot.php");
+                header( "Location: blogpost.php");
             }
     }    redirect();
 // REGISTARTION:  insert data into user_table at dataBase
@@ -99,6 +133,7 @@
         VALUES ( '$_POST[prefix]','$_POST[firstName]','$_POST[lastName]','$_POST[phoneNumber]',
         '$_POST[email]','$_POST[password]','$createdDate', '$_POST[information]', '$createdDate', NULL);";
         $result = mysqli_query($conn, $query) or die;
+    /*****password md5 remaining****/
     }
     
 // set updatetime at last loginat time
@@ -120,7 +155,7 @@
             $result = mysqli_query($conn,$query);
             if (mysqli_fetch_assoc($result)){
                 update_usertable(); // store last  login time
-                header( "Location: blogspot.php");
+                header( "Location: blogpost.php");
             }
             else{
                 return false;

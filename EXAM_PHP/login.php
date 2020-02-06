@@ -9,7 +9,7 @@
     <form method="POST"> 
     <div>
         <span style="color:red">
-            <?php echo login() ? "" : "Invalid Email or Password";?>
+            <?php echo (isset($_POST['login'])) ? login() ? "" : "Invalid Email or Password":"";?>
         </span>
     </div>
     <table>

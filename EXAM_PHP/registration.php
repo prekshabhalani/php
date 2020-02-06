@@ -6,8 +6,7 @@
     <body>
     <?php require_once ("registrationphp.php");
     // $date = new DateTime('now'); 
-    echo date("d/m/y  h:i A", time());
-    
+    //echo date("d/m/y  h:i A", time());
     ?>
         <form method="POST" enctype='multipart/form-data'>
         <pre> <?php print_r($_POST) ?></pre>
@@ -119,6 +118,7 @@
         </table>
         </fieldset>
         <input type="submit" value="Submit" name='submit' >
+        <a href="login.php">Alredy have account</a>
     </div>
     </form>
     </body>

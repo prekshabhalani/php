@@ -2,16 +2,13 @@
 <html>
 
 <head>
-    <title>Blogspot Page</title>
+    <title>BLOGPOST Page</title>
 </head>
 
 <body>
-   <pre>    
-        <input type="submit" value="Manage Category" name='category'>
-        <input type="submit" value="My Profile" name='profile'>
-        <input type="submit" value="Logout" name='logout'>
-       
-   </pre>
+    <?php require_once("header.php"); ?>
+    <h3>Blog Posts</h3>
+    <button><a href="add_blogpost.php">Add Blogpost</a></button>
     <?php 
         $dbhost = "localhost";
         $dbuser = "root";

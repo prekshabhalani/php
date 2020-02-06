@@ -1,68 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Category Page</title>
-    </head>
-    <body>
-    <?php require_once ("registrationphp.php");?>
-        <form method="POST" enctype='multipart/form-data'>
-        <pre> <?php print_r($_POST) ?></pre>
-        <fieldset>
-            <legend>ADD NEW CATEGORY</legend>
-        <table>
-            <tr>
-                <th>
-                    Title : 
-                </th>
-                <td>
-                    <input type="text" name="firstName" id="firstName"   placeholder="First Name" value="<?php echo getValue("firstName"); ?>">
-                    <span style="color:red">
-                    <?php echo (validate("firstName")) ? "Enter valide First name" : "" ;?>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    URL : 
-                </th>
-                <td>
-                    <input type="url" name="firstName" id="firstName"   placeholder="First Name" value="<?php echo getValue("firstName"); ?>">
-                    <span style="color:red">
-                    <?php echo (validate("firstName")) ? "Enter valide First name" : "" ;?>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Meta Title : 
-                </th>
-                <td>
-                    <input type="text" name="" id=""   placeholder="" value="<?php echo getValue("firstName"); ?>">
-                    <span style="color:red">
-                    <?php echo (validate("firstName")) ? "Enter valide First name" : "" ;?>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Parents Category : 
-                </th>
-                <td>
-                    <?php $prefix = [ "Mr","Miss","Mrs","Dr"]?>
-                    <select name="prefix" id="prefix">
-                        <?php foreach ($prefix as $title) :?>
-                        <option value="<?php echo $title ;?>"
-                            <?php echo (getValue("prefix") == $title ) ? 'selected="selected"' : ""; ?>>
-                            <?php echo $title ;?></option>
-                            <?php endforeach;?>        
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th></th>
-                <td></td>
-            </tr>
-        </table>
-        </fieldset>
-    </body>
+
+<head>
+    <title>BLOGPOST Page</title>
+</head>
+
+<body>
+<?php require_once("header.php"); ?>
+    <h3>Blog Category</h3>
+    <button><a href="add_category.php">Add Category</a></button>
+    <?php 
+        $dbhost = "localhost";
+        $dbuser = "root";
+        $dbpass = "";
+        $conn = mysqli_connect($dbhost, $dbuser, $dbpass, 'phptest');
+        if(! $conn ) {
+            echo "Connected failure<br>";
+            die;
+        }
+        $query = 'SELECT * FROM `category`';  
+        $result = mysqli_query($conn,$query);
+        echo "<table border=1>";
+        $cnt = 0;
+        while($row = mysqli_fetch_assoc($result)) {
+            if($cnt != 1) {
+                foreach ($row as $key => $value ) {
+                    echo "<th>".$key."</th>";
+                } 
+                $cnt++; 
+            }
+            echo "<tr>";
+            foreach ($row as $field ) {
+                echo "<td>".$field."</td>";
+            }
+            echo '<td><a href="http://localhost/xampp/php_test/registration.php?id='.$row['category_id'].'">Edit</a></td>';
+            echo '<td><a href="http://localhost/xampp/delete.php?id='.$row['category_id'].'">Delete</a></td>';
+            echo "</tr>";
+        }
+        
+        echo "</table>";
+    ?>
+</body>
 </html>
