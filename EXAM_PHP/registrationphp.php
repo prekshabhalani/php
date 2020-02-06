@@ -1,5 +1,5 @@
 <?php
-//connection
+// ALL: connection
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
@@ -8,7 +8,7 @@
         echo "Connected failure<br>";
         die;
     }   
-     
+// REGISTARTION: returnm all correct value     
     function getValue($fieldName , $returntype="" ){
         if (isset($_POST[$fieldName]) ){    
                 return $_POST[$fieldName];
@@ -22,20 +22,15 @@
                 }
             }    
     }
-    $isthereemail = "temp";
-    // return the enter email already exit or not
-    function isEmailFound($fieldName)
+// REGISTARTION: return the enter email already exit or not
+    function isEmailFound($email)
     {
-        global $conn,$isthereemail;
-        $query = 'SELECT email FROM `usertable`';  
+        global $conn;
+        $query = "SELECT email FROM `usertable` where `email`='$email';" ;  
         $result = mysqli_query($conn,$query);
-        while($row = mysqli_fetch_assoc($result)) {
-                foreach ($row as $key => $value ) {
-                    $isthereemail = ($_POST[$fieldName] == $value) ? 1 : $isthereemail ;
-                }
-        }
-        return ($isthereemail == 1) ? true : false;
+            return (mysqli_fetch_assoc($result))? true:false ;
     }
+// REGISTARTION: field validation return true if data incorrerct
     function validate($fieldName){
         if (isset($_POST["submit"])){
             switch ($fieldName) {
@@ -50,7 +45,7 @@
                     }
             break;
                 case 'phoneNumber':
-                    if (!preg_match('/^[0-9]{11}$/',$_POST[$fieldName]) ){
+                    if (!preg_match('/^[0-9]{10}$/',$_POST[$fieldName]) ){
                         return true;
                     }
             break;
@@ -58,7 +53,7 @@
                     if (!filter_var($_POST[$fieldName], FILTER_VALIDATE_EMAIL)) {    
                         return true;
                     }
-                    else if (isEmailFound($fieldName) == 'true')
+                    else if (isEmailFound($_POST[$fieldName]) == 'true')
                     {
                         return  'Email Exist';
                     }
@@ -83,6 +78,7 @@
             }
         }
     }
+// REGISTARTION: check for the sucssesfull registration and redirect 
     function redirect(){
         if( isset($_POST['submit'])
             && !validate('firstName') && !validate('lastName') 
@@ -93,17 +89,46 @@
                 store_usertable();
                 header( "Location: blogspot.php");
             }
-    }
-    redirect();
-
+    }    redirect();
+// REGISTARTION:  insert data into user_table at dataBase
     function store_usertable(){
         global $conn;
-        $prefix = date("d-m-Y(h:i:sa)");
+        $time = time();
+        $createdDate = date("d M Y (h m)",$time);
         $query = "INSERT INTO `usertable` (`user_prefix`, `first_name`, `last_name`, `phone_no`, `email`, `password`, `last_login_at`, `information`, `created_at`, `update_at`)
         VALUES ( '$_POST[prefix]','$_POST[firstName]','$_POST[lastName]','$_POST[phoneNumber]',
-        '$_POST[email]','$_POST[password]','$prefix', '$_POST[information]', NULL, NULL);";
+        '$_POST[email]','$_POST[password]','$createdDate', '$_POST[information]', '$createdDate', NULL);";
         $result = mysqli_query($conn, $query) or die;
-        //echo mysqli_insert_id($conn);
     }
-
+    
+// set updatetime at last loginat time
+    function update_usertable(){
+        global $conn;
+        $updatedDate = date("d M Y (h m)");
+        $query = " UPDATE `usertable` SET `last_login_at` = '$updatedDate' 
+        WHERE `email` = '$_POST[userId]' ;";
+        echo "$query";
+        $result = mysqli_query($conn, $query) or die;
+    }
+// LOGIN:  return user is valid or not for login
+    function login()
+    {
+        global $conn;
+        if (isset($_POST['login'])) {
+            $query = "SELECT `email`,`password` FROM `usertable` 
+                    where `email`='$_POST[userId]' AND `password`='$_POST[loginPassword]';";
+            $result = mysqli_query($conn,$query);
+            if (mysqli_fetch_assoc($result)){
+                update_usertable(); // store last  login time
+                header( "Location: blogspot.php");
+            }
+            else{
+                return false;
+            }
+        }
+    }
+// LOGIN: redirect to registration page when registration click
+    if (isset($_POST['registration'])){
+        header( "Location: registration.php");
+    }
 ?>

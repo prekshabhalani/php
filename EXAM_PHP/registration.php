@@ -4,7 +4,11 @@
         <title>Registartion Page</title>
     </head>
     <body>
-    <?php require_once ("registrationphp.php"); ?>
+    <?php require_once ("registrationphp.php");
+    // $date = new DateTime('now'); 
+    echo date("d/m/y  h:i A", time());
+    
+    ?>
         <form method="POST" enctype='multipart/form-data'>
         <pre> <?php print_r($_POST) ?></pre>
         <fieldset>
@@ -22,7 +26,7 @@
                             <?php echo (getValue("prefix") == $title ) ? 'selected="selected"' : ""; ?>>
                             <?php echo $title ;?></option>
                             <?php endforeach;?>        
-                        </select>
+                    </select>
                 </td>
             </tr>
             <tr>
@@ -112,7 +116,7 @@
                     </span>
                 </td>
             </tr>
-         </table>
+        </table>
         </fieldset>
         <input type="submit" value="Submit" name='submit' >
     </div>

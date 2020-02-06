@@ -36,10 +36,12 @@
             foreach ($row as $field ) {
                 echo "<td>".$field."</td>";
             }
+            echo '<td><a href="http://localhost/xampp/php_test/registration.php?id='.$row['user_id'].'">Edit</a></td>';
+            echo '<td><a href="http://localhost/xampp/delete.php?id='.$row['user_id'].'">Delete</a></td>';
             echo "</tr>";
         }
+        
         echo "</table>";
     ?>
 </body>
-
 </html>
