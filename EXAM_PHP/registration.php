@@ -4,9 +4,8 @@
         <title>Registartion Page</title>
     </head>
     <body>
-    <?php require_once ("registrationphp.php");
-    // $date = new DateTime('now'); 
-    //echo date("d/m/y  h:i A", time());
+    <?php require_once ("registrationphp.php"); 
+          require_once ("validation.php");
     ?>
         <form method="POST" enctype='multipart/form-data'>
         <pre> <?php print_r($_POST) ?></pre>

@@ -16,9 +16,9 @@
                     Title : 
                 </th>
                 <td>
-                    <input type="text" name="title" id="title"   placeholder="Enter Title" value="<?php echo getValue("title"); ?>">
+                    <input type="text" name="title" id="title"   placeholder="Enter Title" value="<?php echo getValue("title"); ?>"required>
                     <span style="color:red">
-                    <?php echo (validate("title")) ? "Enter valide First name" : "" ;?>
+                    <?php echo (validate("title")) ? "Invalide Title" : "" ;?>
                     </span>
                 </td>
             </tr>
@@ -27,10 +27,10 @@
                     Content : 
                 </th>
                 <td>
-                    <textarea name="content"><?php echo(isset($_POST["content"])) ? getValue("content") : ''; ?>
+                    <textarea name="content" required><?php echo(isset($_POST["content"])) ? getValue("content") : ''; ?>
                     </textarea>
                     <span style="color:red">
-                    <?php echo (validate("content")) ? "Information must not be empty" : "";?>
+                    <?php echo (validate("content")) ? "Invalide content" : "";?>
                     </span>
                 </td>
             </tr>
@@ -39,9 +39,9 @@
                     URL : 
                 </th>
                 <td>
-                    <input type="url" name="url" id="url"   placeholder="Enter Related url" value="<?php echo getValue("url"); ?>">
+                    <input type="url" name="url" id="url" required  placeholder="Enter Related url" value="<?php echo getValue("url"); ?>">
                     <span style="color:red">
-                    <?php echo (validate("url")) ? "must have to enter" : "" ;?>
+                    <?php echo (validate("url")) ? "Invalide Url" : "" ;?>
                     </span>
                 </td>
             </tr>
@@ -50,9 +50,9 @@
                     Meta Title : 
                 </th>
                 <td>
-                    <input type="text" name="metaTitle" id="metaTitle"   placeholder="Enter Meta Title" value="<?php echo getValue("metaTitle"); ?>">
+                    <input type="text" name="metaTitle" id="metaTitle" required  placeholder="Enter Meta Title" value="<?php echo getValue("metaTitle"); ?>">
                     <span style="color:red">
-                    <?php echo (validate("metaTitle")) ? "Enter valide Meta Title" : "" ;?>
+                    <?php echo (validate("metaTitle")) ? "Invalide Meta Title" : "" ;?>
                     </span>
                 </td>
             </tr>
@@ -62,9 +62,9 @@
                 </th>
                 <td>
                     <?php $parents_category = parents_array();?>
-                    <select name="parents_category" id="$parents_category">
-                        <?php foreach ($parents_category as $title) :?>
+                    <select name="parents_category" id="parents_category">
                         <option value=""></option>
+                        <?php foreach ($parents_category as $title) :?>
                         <option value="<?php echo $title ;?>"
                             <?php echo (getValue("parents_category") == $title ) ? 'selected="selected"' : ""; ?>>
                             <?php echo $title ;?>
@@ -76,7 +76,7 @@
             <tr>
                 <th>Image</th>
                 <td>
-                    <input type="file" value="Upload Image" name="image">
+                    <input type="file" value="Upload Image" name="image" required>
                 </td>
             </tr>
             <tr>

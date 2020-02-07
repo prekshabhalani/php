@@ -1,4 +1,6 @@
-<?php
+    <?php
+        session_name("php_exam");
+        session_start();
 // ALL: connection
     $dbhost = "localhost";
     $dbuser = "root";
@@ -30,100 +32,6 @@
         $result = mysqli_query($conn,$query);
             return (mysqli_fetch_assoc($result))? true:false ;
     }
-// REGISTARTION: field validation return true if data incorrerct
-    function validate($fieldName){
-        if (isset($_POST["submit"])){
-            switch ($fieldName) {
-                case 'firstName':
-                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
-                        return true;
-                    }
-            break;
-                case 'lastName':
-                    if (!preg_match("/^([A-Za-z]+)$/",$_POST[$fieldName])) {
-                        return true;
-                    }
-            break;
-                case 'phoneNumber':
-                    if (!preg_match('/^[0-9]{10}$/',$_POST[$fieldName]) ){
-                        return true;
-                    }
-            break;
-                case 'email':
-                    if (!filter_var($_POST[$fieldName], FILTER_VALIDATE_EMAIL)) {    
-                        return true;
-                    }
-                    else if (isEmailFound($_POST[$fieldName]) == 'true')
-                    {
-                        return  'Email Exist';
-                    }
-            break;
-                case 'password':
-                    if (!preg_match('/^[^@][a-zA-Z@0-9]{4}[a-zA-Z@0-9]+$/', $_POST[$fieldName])) {    
-                        return true;
-                    }
-            break;
-                case 'confirmPassword':
-                    if (!($_POST["password"] == $_POST["confirmPassword"])) {
-                        return true;
-                    }
-            break;
-                case 'information':
-                    if ($_POST['information'] == "") {
-                        return true;
-                    }      
-            break;
-            
-            default:
-            break;
-            }
-        }
-        if (isset($_POST["addCategory"])){
-            switch ($fieldName) {
-                case 'title':
-                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
-                        return true;
-                    }
-            break;
-                case 'content':
-                    if (!preg_match("/^([A-Za-z]+)$/",$_POST[$fieldName])) {
-                        return true;
-                    }
-            break;
-                case 'url':
-                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
-                        return true;
-                    }
-            break;
-                case 'metaTitle':
-                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
-                        return true;
-                    }
-            break;
-                case 'parents_category':
-            break;
-                case 'confirmPassword':
-                    if (!($_POST["password"] == $_POST["confirmPassword"])) {
-                        return true;
-                    }
-            break;
-            default:
-            break;
-            }
-        }
-    }
-// REGISTARTION: check for the sucssesfull registration and redirect 
-    function redirect(){
-        if( isset($_POST['submit'])
-            && !validate('firstName') && !validate('lastName') 
-            && !validate('email') && !validate('phoneNumber') 
-            && !validate('information') && !@validate('password')
-            && !validate('confirmPassword') && (isset($_POST['terms'])))
-            {
-                store_usertable();
-                header( "Location: blogpost.php");
-            }
-    }    redirect();
 // REGISTARTION:  insert data into user_table at dataBase
     function store_usertable(){
         global $conn;
@@ -142,7 +50,6 @@
         $updatedDate = date("d M Y (h m)");
         $query = " UPDATE `usertable` SET `last_login_at` = '$updatedDate' 
         WHERE `email` = '$_POST[userId]' ;";
-        echo "$query";
         $result = mysqli_query($conn, $query) or die;
     }
 // LOGIN:  return user is valid or not for login
@@ -150,20 +57,28 @@
     {
         global $conn;
         if (isset($_POST['login'])) {
-            $query = "SELECT `email`,`password` FROM `usertable` 
+            $query = "SELECT `user_id`,`email`,`password` FROM `usertable` 
                     where `email`='$_POST[userId]' AND `password`='$_POST[loginPassword]';";
             $result = mysqli_query($conn,$query);
-            if (mysqli_fetch_assoc($result)){
+            //print_r ($result);
+            if ($row = mysqli_fetch_assoc($result)){
+                storeUserIdSession($row['user_id']); // store into session   
                 update_usertable(); // store last  login time
-                header( "Location: blogpost.php");
+                header( "Location: blogpost.php"); 
+                return true;//not execute
             }
             else{
                 return false;
             }
         }
     }
-// LOGIN: redirect to registration page when registration click
-    if (isset($_POST['registration'])){
-        header( "Location: registration.php");
+// session to store data
+    function storeUserIdSession($userId)
+    {
+        global $conn;
+        $query = "SELECT user_id FROM `usertable` where `user_id`='$userId';" ;  
+        $result = mysqli_query($conn,$query);
+            if ($row = mysqli_fetch_assoc($result))
+            $_SESSION["current_user"] = $row['user_id'];  
     }
 ?>

@@ -2,7 +2,9 @@
 th {
     padding:5px 5px 5px 5px;
 }
-
+<?php 
+    require_once('registrationphp.php');
+    require("validation.php")?>
 </style>
     <table>
     <tr>

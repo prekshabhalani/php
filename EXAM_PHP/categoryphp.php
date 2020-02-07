@@ -4,7 +4,7 @@
     {
         global $conn;
         $parent_category = array();
-        $query = "SELECT `meta_title` FROM `category` 
+        $query = "SELECT `title` FROM `category` 
                  where `parents_category_id` is NULL;";
         $result = mysqli_query($conn,$query);
         while($row = mysqli_fetch_assoc($result)){        

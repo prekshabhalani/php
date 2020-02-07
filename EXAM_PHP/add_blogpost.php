@@ -4,7 +4,7 @@
         <title>ADD BLOG POST PAGE</title>
     </head>
     <body>
-    <?php require_once ("registrationphp.php");?>
+    <?php require_once("blogpostphp.php");?>
     <?php require_once("header.php"); ?>
         <form method="POST" enctype='multipart/form-data'>
         <pre> <?php print_r($_POST) ?></pre>
@@ -18,7 +18,7 @@
                 <td>
                     <input type="text" name="title" id="title"   placeholder="Enter Title" value="<?php echo getValue("title"); ?>">
                     <span style="color:red">
-                    <?php echo (validate("firstName")) ? "Enter valide First name" : "" ;?>
+                    <?php echo (validate("title")) ? "Enter valide title" : "" ;?>
                     </span>
                 </td>
             </tr>
@@ -27,10 +27,10 @@
                     Content : 
                 </th>
                 <td>
-                    <textarea name="information"><?php echo(isset($_POST["information"])) ? getValue("information") : ''; ?>
+                    <textarea name="content"><?php echo(isset($_POST["content"])) ? getValue("content") : ''; ?>
                     </textarea>
                     <span style="color:red">
-                    <?php echo (validate("information")) ? "Information must not be empty" : "";?>
+                    <?php echo (validate("content")) ? "Content must not be empty" : "";?>
                     </span>
                 </td>
             </tr>
@@ -41,24 +41,28 @@
                 <td>
                     <input type="url" name="url" id="url"   placeholder="Enter Related url" value="<?php echo getValue("url"); ?>">
                     <span style="color:red">
-                    <?php echo (validate("firstName")) ? "Enter valide First name" : "" ;?>
+                    <?php echo (validate("Url")) ? "Enter valide Url" : "" ;?>
                     </span>
                 </td>
             </tr>
             <tr>
                 <th>Published At :</th>
-                <td><input type="date" name="publishedAt" id="publishedAt"  > </td>
+                <td><input type="date" name="publishedAt" id="publishedAt"  > 
+                    <span style="color:red">
+                        <?php echo (validate("publishedAt")) ? "published date must not empty " : "" ;?>
+                    </span>
+                </td>
             </tr>
             <tr>
                 <th>
                     Category : 
                 </th>
                 <td>
-                    <?php $prefix = [ "Mr","Miss","Mrs","Dr"]?>
-                    <select name="prefix" id="prefix" multiple>
-                        <?php foreach ($prefix as $title) :?>
+                    <?php  $category = category_array() ?>
+                    <select name="category" id="category" multiple>
+                        <?php foreach ($category as $title) :?>
                         <option value="<?php echo $title ;?>"
-                            <?php echo (getValue("prefix") == $title ) ? 'selected="selected"' : ""; ?>>
+                            <?php echo (getValue("category") == $title ) ? 'selected="selected"' : ""; ?>>
                             <?php echo $title ;?></option>
                             <?php endforeach;?>        
                     </select>
@@ -68,6 +72,9 @@
                 <th>Image</th>
                 <td>
                     <input type="file" value="Upload Image" name="image">
+                    <span style="color:red">
+                        <?php echo (validate("uplodeImage")) ? "you must have to uplode image " : "" ;?>
+                    </span>
                 </td>
             </tr>
             <tr>
