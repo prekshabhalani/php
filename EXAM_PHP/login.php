@@ -4,7 +4,9 @@
 <title>LOGIN PAGE</title>
 </head>
 <body>
-<?php require_once ("registrationphp.php"); ?>
+<?php require_once ("registrationphp.php");
+      require_once ("validation.php");
+?>
     <pre><?php print_r($_POST);?></pre>
     <form method="POST"> 
     <div>

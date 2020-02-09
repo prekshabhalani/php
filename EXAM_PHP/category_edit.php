@@ -8,7 +8,7 @@
     <?php require("header.php"); ?>
         <form method="POST" enctype='multipart/form-data'>
         <pre> <?php print_r($_POST);
-            print_r($_FILES['image']);
+            
         ?></pre>
         <fieldset>
             <legend>ADD NEW CATEGORY</legend>
@@ -76,18 +76,8 @@
                     </select>
                 </td>
             </tr>
-            <tr>
-                <th>Image</th>
                 <td>
-                    <input type="file" value="Upload Image" name="image" >
-                    <span style="color:red">
-                    <?php echo (validate("image"))?>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" name="addCategory" value="Add Category">
+                    <input type="submit" name="edit" value="Update">
                 </td>
             </tr>
         </table>
