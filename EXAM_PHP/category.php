@@ -3,6 +3,13 @@
 
 <head>
     <title>BLOGPOST Page</title>
+    <style>
+        .image
+        {
+            height: 80px;
+            width: 80px;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,19 +33,22 @@
         $query = 'SELECT * FROM `category`';  
         $result = mysqli_query($conn,$query);
         echo "<table border=1>";
-        $cnt = 0;
+        $count = 0;
         while($row = mysqli_fetch_assoc($result)) {
-            if($cnt != 1) {
+            if($count != 1) {
                 foreach ($row as $key => $value ) {
                     echo "<th>".$key."</th>";
                 } 
-                $cnt++; 
+                $count++; 
             }
             echo "<tr>";
             foreach ($row as $field ) {
+                if ($field == $row['image']) 
+                echo "<td><image src='category_image/".$field."'  class='image'></td>";
+                else
                 echo "<td>".$field."</td>";
-            }
-            echo '<td><a href="registration.php?id='.$row['category_id'].'">Edit</a></td>';
+        }
+            echo '<td><a href="category_edit.php?id='.$row['category_id'].'">Edit</a></td>';
             echo '<td><a href="category.php?deleteId='.$row['category_id'].'">Delete</a></td>';
             echo "</tr>";
         }

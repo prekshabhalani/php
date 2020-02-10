@@ -48,7 +48,7 @@
             break;
             }
         }
-        if (isset($_POST["addCategory"])){
+        if (isset($_POST["addCategory"]) || isset($_POST["Update"])){
             switch ($fieldName) {
                 case 'title':
                     if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
@@ -137,18 +137,25 @@
     // REGISTARTION: check for the sucssesfull registration and redirect 
     function redirect(){
         if( isset($_POST['submit'])
-            && !validate('firstName') && !validate('lastName') 
-            && !validate('email') && !validate('phoneNumber') 
-            && !validate('information') && !@validate('password')
-            && !validate('confirmPassword') && (isset($_POST['terms'])))
+                && !validate('firstName') && !validate('lastName') 
+                && !validate('email') && !validate('phoneNumber') 
+                && !validate('information') && !@validate('password')
+                && !validate('confirmPassword') && (isset($_POST['terms'])))
             {
                 store_usertable();
                 header( "Location: blogpost.php");
             }
+            if( isset($_POST['Update'])
+                && !validate('title') && !validate('content') 
+                && !validate('url') && !validate('metatitle'))
+            {
+                if(add_category())
+                header( "Location: category.php");        
+            }
             if( isset($_POST['addCategory'])
-            && !validate('title') && !validate('content') 
-            && !validate('url') && !validate('image') 
-            && !validate('metatitle'))
+                && !validate('title') && !validate('content') 
+                && !validate('url') && !validate('image') 
+                && !validate('metatitle'))
             {
                 add_category();
                 header( "Location: category.php");        

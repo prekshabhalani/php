@@ -87,7 +87,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="submit" name="addCategory" value="Add Category">
+                    <input type="submit" name="addCategory" value="Add Category" >
                 </td>
             </tr>
         </table>

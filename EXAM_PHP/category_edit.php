@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Category Page</title>
+        <title>UPDATE CATEGORY PAGE</title>
     </head>
     <body>
     <?php require("categoryphp.php");?>
     <?php require("header.php"); ?>
         <form method="POST" enctype='multipart/form-data'>
-        <pre> <?php print_r($_POST);
-            
+        <pre> <?php print_r($_POST); print_r($_GET);
         ?></pre>
         <fieldset>
-            <legend>ADD NEW CATEGORY</legend>
+            <legend>UPDATE CATEGORY</legend>
         <table>
+            <tr>
+                <td colspan= "2">
+                <image height="150px"width="150px"src="category_image/a.jpg" /> 
+                 <!--make image  dynamic  -->
+                </td>
+            </tr>
             <tr>
                 <th>
                     Title : 
                 </th>
                 <td>
-                    <input type="text" name="title" id="title"   placeholder="Enter Title" value="<?php echo getValue("title"); ?>">
+                    <input type="text" name="title" id="title"   placeholder="Enter Title" value="<?php echo update_category("title"); ?>">
                     <span style="color:red">
                     <?php echo (validate("title")) ? "Invalide Title" : "" ;?>
                     </span>
@@ -30,7 +35,7 @@
                     Content : 
                 </th>
                 <td>
-                    <textarea name="content" ><?php echo(isset($_POST["content"])) ? getValue("content") : ''; ?>
+                    <textarea name="content" ><?php echo( update_category("content")); ?>
                     </textarea>
                     <span style="color:red">
                     <?php echo (validate("content")) ? "Invalide content" : "";?>
@@ -42,7 +47,7 @@
                     URL : 
                 </th>
                 <td>
-                    <input type="url" name="url" id="url"   placeholder="Enter Related url" value="<?php echo getValue("url"); ?>">
+                    <input type="url" name="url" id="url"   placeholder="Enter Related url" value="<?php echo update_category("url"); ?>">
                     <span style="color:red">
                     <?php echo (validate("url")) ? "Invalide Url" : "" ;?>
                     </span>
@@ -53,7 +58,7 @@
                     Meta Title : 
                 </th>
                 <td>
-                    <input type="text" name="metaTitle" id="metaTitle"   placeholder="Enter Meta Title" value="<?php echo getValue("metaTitle"); ?>">
+                    <input type="text" name="metaTitle" id="metaTitle"   placeholder="Enter Meta Title" value="<?php echo update_category("metaTitle"); ?>">
                     <span style="color:red">
                     <?php echo (validate("metaTitle")) ? "Invalide Meta Title" : "" ;?>
                     </span>
@@ -69,15 +74,16 @@
                         <option value=""></option>
                         <?php foreach ($parents_category as $title) :?>
                         <option value="<?php echo $title ;?>"
-                            <?php echo (getValue("parents_category") == $title ) ? 'selected="selected"' : ""; ?>>
+                            <?php echo (update_Category("parents_category") == $title ) ? 'selected="selected"' : ""; ?>>
                             <?php echo $title ;?>
                         </option>
                             <?php endforeach;?>        
                     </select>
                 </td>
             </tr>
+            <tr>
                 <td>
-                    <input type="submit" name="edit" value="Update">
+                    <input type="submit" name="Update" value="Upadte Category" >
                 </td>
             </tr>
         </table>

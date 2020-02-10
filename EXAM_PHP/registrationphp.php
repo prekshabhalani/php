@@ -11,10 +11,11 @@
         die;
     }   
 // REGISTARTION: returnm all correct value     
+    
     function getValue($fieldName , $returntype="" ){
         if (isset($_POST[$fieldName]) ){    
                 return $_POST[$fieldName];
-            }
+        }
         else{
                 if (isset($_SESSION[$fieldName]) ){
                     return $_SESSION[$fieldName];
