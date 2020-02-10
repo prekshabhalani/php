@@ -4,13 +4,10 @@
         <title>ADD BLOG POST PAGE</title>
     </head>
     <body>
+    <?php require_once("blogpostphp.php");?>
     <?php require_once("header.php"); ?>
-    <?php require_once("blogpostphp.php");
-    
-    ?>
-    
         <form method="POST" enctype='multipart/form-data'>
-        <pre> <?php print_r($_POST);print_r($_FILES); print_r($_SESSION);?></pre>
+        <pre> <?php print_r($_POST) ?></pre>
         <fieldset>
             <legend>ADD NEW BLOG POST</legend>
         <table>
@@ -19,7 +16,7 @@
                     Title : 
                 </th>
                 <td>
-                    <input type="text" name="title" id="title"   placeholder="Enter Title" value="<?php echo getValue("title"); ?>">
+                    <input type="text" name="title" id="title"   placeholder="Enter Title" value="<?php echo update_blogpost("title"); ?>">
                     <span style="color:red">
                     <?php echo (validate("title")) ? "Enter valide title" : "" ;?>
                     </span>
@@ -30,7 +27,7 @@
                     Content : 
                 </th>
                 <td>
-                    <textarea name="content"><?php echo(isset($_POST["content"])) ? getValue("content") : ''; ?>
+                    <textarea name="content"><?php echo(isset($_POST["content"])) ? update_blogpost("content") : ''; ?>
                     </textarea>
                     <span style="color:red">
                     <?php echo (validate("content")) ? "Content must not be empty" : "";?>
@@ -42,7 +39,7 @@
                     URL : 
                 </th>
                 <td>
-                    <input type="url" name="url" id="url"   placeholder="Enter Related url" value="<?php echo getValue("url"); ?>">
+                    <input type="url" name="url" id="url"   placeholder="Enter Related url" value="<?php echo update_blogpost("url"); ?>">
                     <span style="color:red">
                     <?php echo (validate("Url")) ? "Enter valide Url" : "" ;?>
                     </span>
@@ -62,10 +59,10 @@
                 </th>
                 <td>
                     <?php  $category = category_array() ?>
-                    <select name="category[]" id="category" multiple>
+                    <select name="category" id="category" multiple>
                         <?php foreach ($category as $title) :?>
-                        <option value="<?php echo $title;?>"
-                            <?php echo in_array($title, getValue("category", [])) ? 'selected="selected"' : ""; ?>>
+                        <option value="<?php echo $title ;?>"
+                            <?php echo (update_blogpost("category") == $title ) ? 'selected="selected"' : ""; ?>>
                             <?php echo $title ;?></option>
                             <?php endforeach;?>        
                     </select>
@@ -76,7 +73,7 @@
                 <td>
                     <input type="file" value="Upload Image" name="image">
                     <span style="color:red">
-                        <?php echo (validate("image")) ;?>
+                        <?php echo (validate("uplodeImage")) ? "you must have to uplode image " : "" ;?>
                     </span>
                 </td>
             </tr>
@@ -88,6 +85,5 @@
             </tr>
         </table>
         </fieldset>
-        </form>
     </body>
 </html>

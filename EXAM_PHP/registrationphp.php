@@ -12,18 +12,11 @@
     }   
 // REGISTARTION: returnm all correct value     
     
-    function getValue($fieldName , $returntype="" ){
+    function getValue($fieldName , $returntype="") {
         if (isset($_POST[$fieldName]) ){    
                 return $_POST[$fieldName];
-        }
-        else{
-                if (isset($_SESSION[$fieldName]) ){
-                    return $_SESSION[$fieldName];
-                }           
-                else{
-                    return $returntype;
-                }
-            }    
+        } else 
+            return $returntype;
     }
 // REGISTARTION: return the enter email already exit or not
     function isEmailFound($email)
@@ -45,7 +38,7 @@
     /*****password md5 remaining****/
     }
     
-// set updatetime at last loginat time
+// LOGIN: set updatetime at last loginat time
     function update_usertable(){
         global $conn;
         $updatedDate = date("d M Y (h m)");

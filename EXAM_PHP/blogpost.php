@@ -3,12 +3,24 @@
 
 <head>
     <title>BLOGPOST Page</title>
+    <style>
+        .image
+        {
+            height: 80px;
+            width: 80px;
+        }
+    </style>
 </head>
 
 <body>
-    <?php require_once("header.php"); ?>
+<?php require_once("header.php");
+    if (isset($_GET['deleteId'])) {
+        $query = " DELETE FROM `blog_post` WHERE `blog_id` = '$_GET[deleteId]' ";  
+        $result = mysqli_query($conn,$query);
+    }
+?>
     <h3>Blog Posts</h3>
-    <button><a href="add_blogpost.php">Add Blogpost</a></button>
+    <button><a href="add_blogpost.php">Add Category</a></button>
     <?php 
         $dbhost = "localhost";
         $dbuser = "root";
@@ -18,23 +30,26 @@
             echo "Connected failure<br>";
             die;
         }
-        $query = 'SELECT * FROM `usertable`';  
+        $query = 'SELECT * FROM `blog_post`';  
         $result = mysqli_query($conn,$query);
         echo "<table border=1>";
-        $cnt = 0;
+        $count = 0;
         while($row = mysqli_fetch_assoc($result)) {
-            if($cnt != 1) {
+            if($count != 1) {
                 foreach ($row as $key => $value ) {
                     echo "<th>".$key."</th>";
                 } 
-                $cnt++; 
+                $count++; 
             }
             echo "<tr>";
             foreach ($row as $field ) {
+                if ($field == $row['image']) 
+                echo "<td><image src='blogpost_image/".$field."'  class='image'></td>";
+                else
                 echo "<td>".$field."</td>";
-            }
-            echo '<td><a href="registration.php?id='.$row['user_id'].'">Edit</a></td>';
-            echo '<td><a href="http://localhost/xampp/delete.php?id='.$row['user_id'].'">Delete</a></td>';
+        }
+            echo '<td><a href="blogpost_edit.php?id='.$row['blog_id'].'">Edit</a></td>';
+            echo '<td><a href="blogpost.php?deleteId='.$row['blog_id'].'">Delete</a></td>';
             echo "</tr>";
         }
         

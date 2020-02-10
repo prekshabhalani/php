@@ -1,5 +1,5 @@
 <?php
-// REGISTARTION: field validation return true if data incorrerct
+// #: field validation return true if data incorrerct
     function validate($fieldName){
 
         if (isset($_POST["submit"]) ){
@@ -48,7 +48,8 @@
             break;
             }
         }
-        if (isset($_POST["addCategory"]) || isset($_POST["Update"])){
+   //ADD_CATEGORY : CATEGORY_EDIT : ADDBLOG
+        if (isset($_POST["addCategory"]) || isset($_POST["Update"]) || isset($_POST["addBlog"])){
             switch ($fieldName) {
                 case 'title':
                     if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
@@ -70,15 +71,14 @@
                         return true;
                     }
             break;
+            case 'publishedAt':
+                if ($_POST[$fieldName] == ""){
+                    return true;
+                }
+            break;
                 case 'parents_category':
             break;
-                case 'confirmPassword':
-                    if (!($_POST["password"] == $_POST["confirmPassword"])) {
-                        return true;
-                    }
-            break;
             case  'image':
-                
                 if (!empty($_FILES[$fieldName]['name'])) {
                     $type_arry = ["image/jpeg","image/png","image/jpg"];        
                     if(!in_array($_FILES[$fieldName]['type'],$type_arry)){
@@ -93,33 +93,7 @@
             break;
             }
         }
- 
-        if (isset($_POST["addBlog"])){
-            switch ($fieldName) {
-                case 'title':
-                    if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
-                        return true;
-                    }
-            break;
-                case 'content':
-                    if (!preg_match("/^([A-Za-z ]+)$/",$_POST[$fieldName])) {
-                        return true;
-                    }
-            break;
-                // case 'url':
-                //     if (!preg_match('/^([A-Za-z]+)$/' , $_POST[$fieldName])){
-                //         return true;
-                //     }
-            // break;
-                case 'publishedAt':
-                    if ($_POST[$fieldName] == " "){
-                        return true;
-                    }
-            break;
-            default:
-            break;
-            }
-        }
+        
     }
 
     function image_validate()
@@ -134,7 +108,7 @@
             return "you must have to select Image";
         }
     }
-    // REGISTARTION: check for the sucssesfull registration and redirect 
+    // : check for the sucssesfull redirect 
     function redirect(){
         if( isset($_POST['submit'])
                 && !validate('firstName') && !validate('lastName') 
@@ -159,6 +133,15 @@
             {
                 add_category();
                 header( "Location: category.php");        
+            }
+            
+            if( isset($_POST['addBlog'])
+                && !validate('title') && !validate('content') 
+                && !validate('image') 
+                && !validate('publishedAt'))
+            {
+                addBlog();
+                //header( "Location: blogpost.php");        
             }
 
         }    redirect();
